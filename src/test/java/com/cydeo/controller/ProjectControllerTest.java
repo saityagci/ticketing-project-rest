@@ -105,7 +105,16 @@ class ProjectControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("message")
                         .value("Project is successfully updated"));
-
+    }
+    @Test
+    public void givenToken_deleteProject() throws Exception{
+        mvc.perform(MockMvcRequestBuilders
+                .delete("/api/v1/project/"+projectDTO.getProjectCode())
+                .header("Authorization",token)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent())
+                .andExpect(MockMvcResultMatchers.jsonPath("message")
+                        .value("Project is successfully deleted"));
     }
 
 

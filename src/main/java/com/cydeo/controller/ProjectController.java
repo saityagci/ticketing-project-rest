@@ -41,9 +41,9 @@ public class ProjectController {
     @DeleteMapping("{projectCode}")
     @RolesAllowed("Manager")
     public ResponseEntity<ResponseWrapper> deleteProject(@PathVariable("projectCode") String projectCode){
-        projectService.getByProjectCode(projectCode);
+        projectService.delete(projectCode);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                .body(new ResponseWrapper("User successfully deleted",HttpStatus.CREATED));
+                .body(new ResponseWrapper("Project is successfully deleted",HttpStatus.CREATED));
     }
     @PutMapping
     @RolesAllowed("Manager")
