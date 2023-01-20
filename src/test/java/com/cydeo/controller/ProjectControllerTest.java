@@ -1,8 +1,10 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.ProjectDTO;
+import com.cydeo.dto.ResponseDTO;
 import com.cydeo.dto.RoleDTO;
 import com.cydeo.dto.UserDTO;
+import com.cydeo.entity.ResponseWrapper;
 import com.cydeo.enums.Gender;
 import com.cydeo.enums.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +16,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 
@@ -36,7 +41,7 @@ class ProjectControllerTest {
 
     @BeforeAll
      static void setup(){
-        token="Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIdTlVXzQtOVZHZEl2b0Q2V3Z0M2UwMlZIMFBmNXNwZ3dJS0xJQkNOcHo0In0.eyJleHAiOjE2NzQyMDg3NjEsImlhdCI6MTY3NDE3Mjc2MSwianRpIjoiNWViYzUzOTUtNTZjNS00YzM1LTg0ZDMtZGU1MjVjYmQwNTc4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL2N5ZGVvLWRldiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI2OWFlMzM2Zi0wOGQ0LTQyMzctYmM5Mi1jMmI2OTY2MzkyMDMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ0aWNrZXRpbmctYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg2ZDc2MzM1LWM1MWItNGMzZS1hNmMyLTcwYTNkYjY4NmFjZiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDgxIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtY3lkZW8tZGV2IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ0aWNrZXRpbmctYXBwIjp7InJvbGVzIjpbIk1hbmFnZXIiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiI4NmQ3NjMzNS1jNTFiLTRjM2UtYTZjMi03MGEzZGI2ODZhY2YiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6Im1pa2Ugc21pdGgiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtaWtlIiwiZ2l2ZW5fbmFtZSI6Im1pa2UiLCJmYW1pbHlfbmFtZSI6InNtaXRoIn0.IWE_GsACWuM9Kz1xohqcNFgTp_6TSUuwTjoczil1q0-nrWAFN3ArN0Lrtm5zozIZzUY0OQ6H65dxV5f78wq8yfgNB9YRJdUoG9erEDKnL8CiTiTIt86EL-7t6RxxSLo-hKKNv2f0k3RmK8uY0STmWZf2A0kRcL27SyOIYAeGJgXnFWCUM9zCCfPPEVnAytOQl-qizEKUDdBD3yZQl7UNSN22JqZuK6ImlhPyk6jqtgjcIZfeq6b4wcwOvFCnJnzfLRSVRXPG1TA9WtrJ7Xu-_PaxQ2AF7GYzdBnNXKarf2SCV4b-NVqAdhY-q-lnjiZ4uJAf9TCyGbNl3_yajstmHw";
+        token="Bearer"+makeRequest();
         userDTO= UserDTO.builder()
                 .id(2L)
                 .firstName("mike")
@@ -115,6 +120,36 @@ class ProjectControllerTest {
                 .andExpect(status().isNoContent())
                 .andExpect(MockMvcResultMatchers.jsonPath("message")
                         .value("Project is successfully deleted"));
+    }
+    private static String makeRequest() {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("grant_type", "password");
+        map.add("client_id", "ticketing-app");
+        map.add("client_secret", "QCWpIZZLsKWMKtiKemPMhS6lO4QJXiTd");
+        map.add("username", "mike");
+        map.add("password", "abc1");
+        map.add("scope", "openid");
+
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
+
+        ResponseEntity<ResponseDTO> response =
+                restTemplate.exchange("http://localhost:8080/auth/realms/cydeo-dev/protocol/openid-connect/token",
+                        HttpMethod.POST,
+                        entity,
+                        ResponseDTO.class);
+
+        if (response.getBody() != null) {
+            return response.getBody().getAccess_token();
+        }
+
+        return "";
+
     }
 
 
