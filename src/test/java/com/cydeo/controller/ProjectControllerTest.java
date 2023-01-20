@@ -35,7 +35,7 @@ class ProjectControllerTest {
 
     @BeforeAll
     static void setup(){
-        token="Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIdTlVXzQtOVZHZEl2b0Q2V3Z0M2UwMlZIMFBmNXNwZ3dJS0xJQkNOcHo0In0.eyJleHAiOjE2NzQxNzEzMDksImlhdCI6MTY3NDE3MTAwOSwianRpIjoiN2ZlYTdlOWMtODhlOC00OWQxLWE0MWUtNWRkMmY0YTdhNmI1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL2N5ZGVvLWRldiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI2OWFlMzM2Zi0wOGQ0LTQyMzctYmM5Mi1jMmI2OTY2MzkyMDMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ0aWNrZXRpbmctYXBwIiwic2Vzc2lvbl9zdGF0ZSI6IjY1OWMzMzYxLTBlYzgtNDlmYS04NzczLTM0OThhMTIyZTg1ZSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDgxIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtY3lkZW8tZGV2IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ0aWNrZXRpbmctYXBwIjp7InJvbGVzIjpbIk1hbmFnZXIiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiI2NTljMzM2MS0wZWM4LTQ5ZmEtODc3My0zNDk4YTEyMmU4NWUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6Im1pa2Ugc21pdGgiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtaWtlIiwiZ2l2ZW5fbmFtZSI6Im1pa2UiLCJmYW1pbHlfbmFtZSI6InNtaXRoIn0.igzAHA3p_nTtRktFz_RfGmIiVmS-brRQLSJaLAyFssk7uWGJU3ZozudF9LAYRiLoFk6FUVFHOaeJjWZkjuSBhFrsgo9YuVS3fUZpU-HH0D64MLDp1r2tGh6eereWKlUSaWgJeQhEpFBUdWCBN6W04I6rv-DtuylYtBhjp0wqOvpxBkln1CvRCP91DJdAsqiKDj9Waxdx_L05l6gEYihqvIh-y4QZol7FM8DjnGJLTF_rLowQ0a81ZMz8DPZF3_fUHq_mplCA5trUIEVXOtMaxTuVt8NlyadxIqLdsvZ94ZWwD_aubiIvlDZpC8MaPsiHgF7n1l2exgy_Q_VJnNXJdQ";
+        token="Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJIdTlVXzQtOVZHZEl2b0Q2V3Z0M2UwMlZIMFBmNXNwZ3dJS0xJQkNOcHo0In0.eyJleHAiOjE2NzQyMDg3NjEsImlhdCI6MTY3NDE3Mjc2MSwianRpIjoiNWViYzUzOTUtNTZjNS00YzM1LTg0ZDMtZGU1MjVjYmQwNTc4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2F1dGgvcmVhbG1zL2N5ZGVvLWRldiIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI2OWFlMzM2Zi0wOGQ0LTQyMzctYmM5Mi1jMmI2OTY2MzkyMDMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ0aWNrZXRpbmctYXBwIiwic2Vzc2lvbl9zdGF0ZSI6Ijg2ZDc2MzM1LWM1MWItNGMzZS1hNmMyLTcwYTNkYjY4NmFjZiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDgxIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtY3lkZW8tZGV2IiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJ0aWNrZXRpbmctYXBwIjp7InJvbGVzIjpbIk1hbmFnZXIiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIGVtYWlsIHByb2ZpbGUiLCJzaWQiOiI4NmQ3NjMzNS1jNTFiLTRjM2UtYTZjMi03MGEzZGI2ODZhY2YiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6Im1pa2Ugc21pdGgiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtaWtlIiwiZ2l2ZW5fbmFtZSI6Im1pa2UiLCJmYW1pbHlfbmFtZSI6InNtaXRoIn0.IWE_GsACWuM9Kz1xohqcNFgTp_6TSUuwTjoczil1q0-nrWAFN3ArN0Lrtm5zozIZzUY0OQ6H65dxV5f78wq8yfgNB9YRJdUoG9erEDKnL8CiTiTIt86EL-7t6RxxSLo-hKKNv2f0k3RmK8uY0STmWZf2A0kRcL27SyOIYAeGJgXnFWCUM9zCCfPPEVnAytOQl-qizEKUDdBD3yZQl7UNSN22JqZuK6ImlhPyk6jqtgjcIZfeq6b4wcwOvFCnJnzfLRSVRXPG1TA9WtrJ7Xu-_PaxQ2AF7GYzdBnNXKarf2SCV4b-NVqAdhY-q-lnjiZ4uJAf9TCyGbNl3_yajstmHw";
         userDTO= UserDTO.builder()
                 .id(2L)
                 .firstName("ozzy")
@@ -92,6 +92,18 @@ class ProjectControllerTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    @Test
+    public void givenToken_updateProject() throws Exception{
+        projectDTO.setProjectName("Api-cydeo");
+        mvc.perform(MockMvcRequestBuilders
+                .put("/api/v1/project")
+                .header("Authorization",token)
+                .content(toJsonString(projectDTO))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("message")
+                        .value("Project is successfully updated"));
+
     }
 
 
