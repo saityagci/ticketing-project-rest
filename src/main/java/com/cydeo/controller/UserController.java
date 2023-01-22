@@ -1,6 +1,7 @@
 package com.cydeo.controller;
 
 import com.cydeo.annotation.ExecutionTime;
+import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.UserDTO;
 import com.cydeo.entity.ResponseWrapper;
 import com.cydeo.service.UserService;
@@ -42,10 +43,9 @@ public class UserController {
         @PostMapping
         @RolesAllowed("Admin")
         @Operation(summary= "Create User")
-        public ResponseEntity<ResponseWrapper> createUser(@RequestBody UserDTO user){
-         userService.save(user);
-            return ResponseEntity.status(HttpStatus.CREATED)
-               .body(new ResponseWrapper("User is successfully created",HttpStatus.CREATED));
+        public ResponseEntity<ResponseWrapper> createProject(@RequestBody UserDTO user){
+            userService.save(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseWrapper("User is successfully created",HttpStatus.CREATED));
         }
         @PutMapping
         @RolesAllowed("Admin")
